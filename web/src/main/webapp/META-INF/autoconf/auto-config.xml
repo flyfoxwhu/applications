@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config description="自动配置">
+	<group name="applications.enviroment">
+		<property name="applications.env" defaultValue="daily" description="环境配置" />
+		<property name="applications.service.url" defaultValue="http://gage.com:8080/"
+			description="applications系统地址" />
+	</group>
+	
+	<group name="applications.spring">
+	</group>
+	<group name="applications.logback">
+		<property name="applications.log.path" defaultValue="/Users/hukaisheng/applications/log"
+			description="日志根目录" />
+		<property name="applications.log.level" defaultValue="INFO"
+			description="日志级别" />
+	</group>
+	<group name="applications.redis">
+		<property name="redis.domain" defaultValue="gagehks.com" />
+		<property name="redis.password" defaultValue="hks123" />
+		<property name="redis.pool.maxActive" defaultValue="1024" />
+		<property name="redis.pool.maxIdle" defaultValue="200" />
+		<property name="redis.pool.maxWaitMillis" defaultValue="1000" />
+		<property name="redis.pool.testOnBorrow" defaultValue="true" />
+		<property name="redis.port" defaultValue="6655" />
+		<property name="redis.timeout" defaultValue="2000" />
+	</group>
+
+	<group name="applications.mail">
+		<property name="sender.name" defaultValue="test@qq.com" description="邮箱地址" />
+		<property name="sender.password" defaultValue="test" description="邮箱密码" />
+		<property name="sender.host" defaultValue="smtp.exmail.qq.com" description="服务地址" />
+	</group>
+
+	<script>
+		<generate template="applications.properties.vm"
+			destfile="WEB-INF/classes/config/applications.properties" charset="UTF-8" />
+		<generate template="logback.xml.vm" destfile="WEB-INF/logback.xml"
+			charset="UTF-8" />
+	</script>
+</config>

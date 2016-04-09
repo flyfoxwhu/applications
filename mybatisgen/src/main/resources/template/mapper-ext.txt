@@ -1,0 +1,10 @@
+package ${mapperExtPackage};
+
+import ${mapperPackage}.${className}${mapperSuffix};
+
+/**
+ * MyBatis Ext Mapper for ${className}.
+ */
+public interface ${className}${extMapperSuffix} extends ${className}${mapperSuffix} {
+
+}

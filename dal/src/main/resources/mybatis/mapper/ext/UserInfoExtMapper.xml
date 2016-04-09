@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mini.dal.mapper.ext.UserInfoExtMapper">
+
+    <resultMap id="UserInfoResultMap" type="com.mini.dal.model.UserInfoDO">
+        <result column="portrait_imgs" jdbcType="VARCHAR" property="portraitImgs" />
+        <result column="descri" jdbcType="VARCHAR" property="descri" />
+        <result column="real_name" jdbcType="VARCHAR" property="realName" />
+        <result column="corp_name" jdbcType="VARCHAR" property="corpName" />
+        <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+        <result column="ustatus" jdbcType="VARCHAR" property="persionVerifyState" />
+        <result column="pstatus" jdbcType="VARCHAR" property="corpVerifyState" />
+        <result column="email_address" jdbcType="VARCHAR" property="emailAddress" />
+    </resultMap>
+
+    <resultMap id="UserInfoResultMapV" type="com.mini.dal.model.UserInfoDO">
+        <result column="portrait_imgs" jdbcType="VARCHAR" property="portraitImgs" />
+        <result column="descri" jdbcType="VARCHAR" property="descri" />
+        <result column="real_name" jdbcType="VARCHAR" property="realName" />
+        <result column="corp_name" jdbcType="VARCHAR" property="corpName" />
+        <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+        <result column="ustatus" jdbcType="VARCHAR" property="persionVerifyState" />
+        <result column="pstatus" jdbcType="VARCHAR" property="corpVerifyState" />
+        <result column="email_address" jdbcType="VARCHAR" property="emailAddress" />
+        <result column="enterprise_type" jdbcType="TINYINT" property="enterpriseType"/>
+        <result column="loan_status" jdbcType="TINYINT" property="loanVerifyState"/>
+    </resultMap>
+
+
+
+    <select id="getUserInfo" parameterType="java.lang.Long" resultMap="UserInfoResultMap">
+        select portrait_imgs,descri,real_name,corp_name,mobile,u.status as ustatus,p.is_verify as pstatus,email_address
+        from b2b_user u left join b2b_partner p on u.partner_id=p.id where u.id=#{userId,jdbcType=BIGINT} limit 1
+    </select>
+
+    <select id="getUserInfoV" parameterType="java.lang.Long" resultMap="UserInfoResultMapV">
+        select portrait_imgs,descri,real_name,corp_name,mobile,u.status as ustatus,p.is_verify as pstatus,email_address
+        ,enterprise_type,loan_status
+        from b2b_user u left join b2b_partner p on u.partner_id=p.id where u.id=#{userId,jdbcType=BIGINT} limit 1
+    </select>
+
+    <update id="updateUserInfo" parameterType="com.mini.dal.model.UpdateUserInfoDO">
+        update b2b_user
+        <set>
+            <if test="portraitImgs != null and portraitImgs != '' ">
+                portrait_imgs = #{portraitImgs,jdbcType=VARCHAR},
+            </if>
+            <if test="descri != null and descri != '' ">
+                descri = #{descri,jdbcType=VARCHAR},
+            </if>
+            gmt_modified = now()
+        </set>
+        where id=#{userId,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateEmail" parameterType="com.mini.dal.model.UpdateUserInfoDO">
+        update b2b_user set email_address = #{emailAddress,jdbcType=VARCHAR},
+        gmt_modified = now() where id=#{userId,jdbcType=BIGINT}
+    </update>
+</mapper>

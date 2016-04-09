@@ -1,0 +1,9 @@
+{
+  "name": "mini-assets",
+  "description": "Assets for project Mini",
+  "version": "1.0.1",
+  "devDependencies": {
+    "fis-parser-node-sass": "latest",
+    "fis-postprocessor-jswrapper": "latest"
+  }
+}

@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mini.dal.mapper.ext.ClientClueExtMapper">
+
+    <select id="getCluePersonalSummaryDao" parameterType="com.mini.dal.dto.dms.report.ReportDTO" 
+            resultType="com.mini.dal.vo.dms.report.CluePersonVO">
+        
+        SELECT
+        (
+            SELECT
+                COUNT(1)
+            FROM
+                `b2b_client_clue` cc
+            WHERE
+                cc.user_id = #{userId}
+            AND cc.is_delete = 0
+            AND cc.is_new = 1
+            <if test="startTime != null and endTime != null">
+                AND cc.gmt_create BETWEEN #{startTime} AND #{endTime}
+            </if>
+        ) AS clueTotalCount ,
+        (
+            SELECT
+                COUNT(1)
+            FROM
+                `b2b_client_clue` cc
+            WHERE
+                cc.user_id = #{userId}
+            AND cc.is_delete = 0
+            AND cc.is_new = 1
+            AND cc.`status` = 2
+            <if test="startTime != null and endTime != null">
+                AND cc.gmt_create BETWEEN #{startTime} AND #{endTime}
+            </if>
+        ) AS clueDealCount ,
+        (
+            SELECT
+                COUNT(1)
+            FROM
+                `b2b_client_clue` cc
+            WHERE
+                cc.user_id = #{userId}
+            AND cc.is_delete = 0
+            AND cc.is_new = 1
+            AND cc.arrival_times > 0
+            <if test="startTime != null and endTime != null">
+                AND cc.gmt_create BETWEEN #{startTime} AND #{endTime}
+            </if>
+        ) AS clueToStoreCount ,
+        (
+            SELECT
+                COUNT(1)
+            FROM
+                `b2b_client_clue` cc
+            WHERE
+                cc.user_id = #{userId}
+            AND cc.is_delete = 0
+            AND cc.is_new = 1
+        ) AS clueAllTotalCount ,
+        (
+            SELECT
+                COUNT(1)
+            FROM
+                `b2b_client_clue` cc
+            WHERE
+                cc.user_id = #{userId}
+            AND cc.is_delete = 0
+            AND cc.is_new = 1
+            AND cc.`status` IN (0, 1)
+        ) AS clueFollowCount ,
+        (
+            SELECT
+                COUNT(1)
+            FROM
+                `b2b_client_clue` cc
+            WHERE
+                cc.user_id = #{userId}
+            AND cc.is_delete = 0
+            AND cc.is_new = 1
+            AND cc.`status` = 3
+        ) AS clueDefeatCount ,
+        (
+            SELECT
+                COUNT(1)
+            FROM
+                `b2b_client_clue` cc
+            WHERE
+                cc.user_id = #{userId}
+            AND cc.is_delete = 0
+            AND cc.is_new = 1
+            AND cc.`status` = 4
+        ) AS clueInvalidCount ,
+        (
+            SELECT
+                COUNT(DISTINCT cc.id)
+            FROM
+                `b2b_client_clue` cc
+            JOIN `b2b_clue_alarm` ca ON ca.clue_id = cc.id AND ca.alarm_time IS NOT NULL AND ca.alarm_time >= NOW()
+            WHERE
+                cc.user_id = #{userId} AND cc.`status` = 1 AND cc.is_delete = 0 AND cc.is_new = 1
+        ) AS clueSetVisitCount ,
+        (
+            SELECT
+                COUNT(1)
+            FROM
+                `b2b_client_clue` cc
+            WHERE
+                cc.user_id = #{userId} 
+            AND cc.`status` != 0 AND cc.is_delete = 0 AND cc.is_new = 1
+        ) AS clueFollowedCount ,
+        <![CDATA[
+            (
+                SELECT
+                    COUNT(DISTINCT cc.id)
+                FROM
+                    `b2b_client_clue` cc
+                JOIN `b2b_clue_alarm` ca ON ca.clue_id = cc.id AND ca.alarm_time IS NOT NULL AND ca.alarm_time < NOW()
+                WHERE
+                    cc.user_id = #{userId} AND cc.`status` = 1 AND cc.is_delete = 0 AND cc.is_new = 1
+            ) AS clueOverdueCount ,
+        ]]>
+        (
+            SELECT
+                COUNT(cc.id)
+            FROM
+                `b2b_client_clue` cc
+            WHERE
+                cc.user_id = #{userId} AND cc.`status` = 0 AND cc.is_delete = 0 AND cc.is_new = 1
+        ) AS clueNoFollowCount
+        
+    </select>
+    
+    <select id="getClueManagerSummaryDao" parameterType="com.mini.dal.dto.dms.report.ReportDTO" 
+            resultType="com.mini.dal.vo.dms.report.ClueManagerVO">
+        
+        SELECT 
+        (
+            SELECT
+                COUNT(1)
+            FROM
+                `b2b_client_clue` cc
+            WHERE
+                cc.partner_id = #{partnerId}
+            AND cc.is_delete = 0
+            AND cc.is_new = 1
+            <if test="startTime != null and endTime != null">
+                AND cc.gmt_create BETWEEN #{startTime} AND #{endTime}
+            </if>
+        ) AS clueTotalCount,
+        (
+            SELECT
+                COUNT(1)
+            FROM
+                `b2b_client_clue` cc
+            WHERE
+                cc.partner_id = #{partnerId}
+            AND cc.is_delete = 0
+            AND cc.is_new = 1
+        ) AS clueAllTotalCount,
+        (
+            SELECT COUNT(1) FROM `b2b_client_clue` cc
+            WHERE cc.partner_id = #{partnerId}
+            AND cc.is_delete = 0
+            AND cc.is_new = 1
+            AND cc.`status` = 2
+            <if test="startTime != null and endTime != null">
+                AND cc.gmt_create BETWEEN #{startTime} AND #{endTime}
+            </if>
+        ) AS clueDealCount,
+        (
+            SELECT COUNT(1) FROM `b2b_client_clue` cc
+            WHERE cc.partner_id = #{partnerId}
+            AND cc.is_delete = 0
+            AND cc.is_new = 1
+            AND cc.`status` = 2
+        ) AS clueAllDealCount,
+        (
+            SELECT COUNT(1) FROM `b2b_client_clue` cc
+            WHERE cc.partner_id = #{partnerId}
+            AND cc.is_delete = 0
+            AND cc.is_new = 1
+            AND cc.arrival_times > 0
+            <if test="startTime != null and endTime != null">
+                AND cc.gmt_create BETWEEN #{startTime} AND #{endTime}
+            </if>
+        ) AS clueToStoreCount,
+        (
+            SELECT COUNT(1) FROM `b2b_client_clue` cc
+            WHERE cc.partner_id = #{partnerId}
+            AND cc.is_delete = 0
+            AND cc.is_new = 1
+            AND cc.arrival_times > 0
+        ) AS clueAllToStoreCount
+        
+    </select>
+    
+    <select id="countClueNumByConditionDao" parameterType="com.mini.dal.dto.dms.report.ReportDTO" resultType="int">
+
+        SELECT
+            COUNT(1)
+        FROM
+            `b2b_client_clue` cc
+        WHERE
+            cc.is_delete = 0
+        AND cc.is_new = 1
+        <if test="partnerId != null">
+            AND cc.partner_id = #{partnerId}
+        </if>
+        <if test="userId != null">
+            AND cc.user_id = #{userId}
+        </if>
+        <if test="userName != null">
+            AND cc.user_name = #{userName}
+        </if>
+        <if test="status != null">
+            AND cc.`status` = #{status}
+        </if>
+        <if test="startTime != null and endTime != null">
+            AND cc.gmt_create BETWEEN #{startTime} AND #{endTime}
+        </if>
+        
+    </select>
+    
+    <select id="getClueSourceLevelSummaryDao" parameterType="com.mini.dal.dto.dms.report.ReportDTO" 
+            resultType="com.mini.dal.vo.dms.report.ClueSourceLevelSummaryVO">
+        
+        SELECT
+            cc.source ,
+            cc.`level` ,
+            COUNT(*) AS clueCount
+        FROM
+            `b2b_client_clue` cc
+        WHERE
+            cc.is_delete = 0
+        AND cc.is_new = 1
+        AND cc.source != ''
+        AND cc.source IS NOT NULL
+        AND cc.`level` != 4
+        AND cc.`status` != 4
+        <if test="partnerId != null">
+            AND cc.partner_id = #{partnerId}
+        </if>
+        <if test="userId != null">
+            AND cc.user_id = #{userId}
+        </if>
+        <if test="startTime != null and endTime != null">
+            AND cc.gmt_create BETWEEN #{startTime} and #{endTime}
+        </if>
+        GROUP BY cc.source, cc.`level`;
+        
+    </select>
+    
+    <select id="getClueSourceInvalidSummaryDao" parameterType="com.mini.dal.dto.dms.report.ReportDTO" 
+            resultType="com.mini.dal.vo.dms.report.ClueSourceSummaryVO">
+
+        SELECT
+            cc.source ,
+            COUNT(*) AS clueCount
+        FROM
+            `b2b_client_clue` cc
+        WHERE
+            cc.is_delete = 0
+        AND cc.is_new = 1
+        AND cc.source != ''
+        AND cc.source IS NOT NULL
+        AND cc.`status` = 4
+        <if test="partnerId != null">
+            AND cc.partner_id = #{partnerId}
+        </if>
+        <if test="userId != null">
+            AND cc.user_id = #{userId}
+        </if>
+        <if test="startTime != null and endTime != null">
+            AND cc.gmt_create BETWEEN #{startTime} and #{endTime}
+        </if>
+        GROUP BY cc.source;
+        
+    </select>
+    
+    <select id="countOverdueClueDao" parameterType="com.mini.dal.dto.dms.report.ReportDTO" 
+            resultType="int">
+        
+        <![CDATA[
+            SELECT
+                COUNT(DISTINCT cc.id)
+            FROM
+                `b2b_client_clue` cc
+            JOIN `b2b_clue_alarm` ca ON ca.clue_id = cc.id AND ca.alarm_time IS NOT NULL AND ca.alarm_time < NOW()
+        ]]>
+            WHERE
+                cc.`status` IN (0, 1)
+            AND cc.is_delete = 0
+            AND cc.is_new = 1
+            <if test="userId != null">
+                AND cc.user_id = #{userId}
+            </if>
+            <if test="partnerId != null">
+                AND cc.partner_id = #{partnerId}
+            </if>
+        
+    </select>
+    
+    <select id="getClueUserSummaryDao" parameterType="com.mini.dal.dto.dms.report.ReportDTO" 
+            resultType="com.mini.dal.vo.dms.report.ClueUserSummaryVO">
+        
+        SELECT
+            cc.user_name AS userName,
+            cc.user_id AS userId,
+            COUNT(1) AS clueCount
+        FROM
+            `b2b_client_clue` cc
+        WHERE
+            cc.is_delete = 0
+        AND cc.is_new = 1
+        AND cc.user_name != ''
+        AND cc.user_name IS NOT NULL
+        AND cc.user_id IS NOT NULL
+        <if test="partnerId != null">
+            AND cc.partner_id = #{partnerId}
+        </if>
+        <if test="startTime != null and endTime != null">
+            AND cc.gmt_create BETWEEN #{startTime} and #{endTime}
+        </if>
+        GROUP BY
+            cc.user_name
+        
+    </select>
+    
+    <select id="countToStoreClueDao" parameterType="com.mini.dal.dto.dms.report.ReportDTO" 
+            resultType="int">
+
+        SELECT COUNT(1) FROM `b2b_client_clue` cc
+        WHERE 
+            cc.is_delete = 0
+        AND cc.is_new = 1
+        AND cc.arrival_times > 0
+        <if test="partnerId != null">
+            AND cc.partner_id = #{partnerId}
+        </if>
+        <if test="userName != null">
+            AND cc.user_name = #{userName}
+        </if>
+        <if test="startTime != null and endTime != null">
+            AND cc.gmt_create BETWEEN #{startTime} AND #{endTime}
+        </if>
+        
+    </select>
+    
+    <select id="getClueUserLevelSummaryDao" parameterType="com.mini.dal.dto.dms.report.ReportDTO" 
+            resultType="com.mini.dal.vo.dms.report.ClueUserLevelSummaryVO">
+
+        SELECT
+            cc.user_name AS userName,
+            cc.`level` ,
+            COUNT(*) AS clueCount
+        FROM
+            `b2b_client_clue` cc
+        WHERE
+            cc.is_delete = 0
+        AND cc.is_new = 1
+        AND cc.user_name != ''
+        AND cc.user_name IS NOT NULL
+        AND cc.`level` != 4
+        AND cc.`status` != 4
+        <if test="partnerId != null">
+            AND cc.partner_id = #{partnerId}
+        </if>
+        <if test="userId != null">
+            AND cc.user_id = #{userId}
+        </if>
+        <if test="startTime != null and endTime != null">
+            AND cc.gmt_create BETWEEN #{startTime} and #{endTime}
+        </if>
+        GROUP BY cc.user_name, cc.`level`;
+        
+    </select>
+    
+    <select id="getClueUserInvalidSummaryDao" parameterType="com.mini.dal.dto.dms.report.ReportDTO" 
+            resultType="com.mini.dal.vo.dms.report.ClueUserSummaryVO">
+
+        SELECT
+            cc.user_name AS userName,
+            COUNT(*) AS clueCount
+        FROM
+            `b2b_client_clue` cc
+        WHERE
+            cc.is_delete = 0
+        AND cc.is_new = 1
+        AND cc.user_name != ''
+        AND cc.user_name IS NOT NULL
+        AND cc.`status` = 4
+        <if test="partnerId != null">
+            AND cc.partner_id = #{partnerId}
+        </if>
+        <if test="userId != null">
+            AND cc.user_id = #{userId}
+        </if>
+        <if test="startTime != null and endTime != null">
+            AND cc.gmt_create BETWEEN #{startTime} and #{endTime}
+        </if>
+        GROUP BY cc.user_name;
+        
+    </select>
+    
+    <select id="countNoFollowClueDao" parameterType="com.mini.dal.dto.dms.report.ReportDTO" 
+            resultType="int">
+
+        <![CDATA[
+            SELECT
+                COUNT(DISTINCT cc.id)
+            FROM
+                `b2b_client_clue` cc
+        ]]>
+        WHERE
+            cc.`status` IN (0, 1)
+        AND cc.is_delete = 0
+        AND cc.is_new = 1
+        <if test="userId != null">
+            AND cc.user_id = #{userId}
+        </if>
+        <if test="partnerId != null">
+            AND cc.partner_id = #{partnerId}
+        </if>
+        
+    </select>
+    
+    <select id="getNotVisitedClueSummaryDao" parameterType="com.mini.dal.dto.dms.report.ReportDTO" 
+            resultType="com.mini.dal.vo.dms.report.ClueUserSummaryVO">
+        
+        SELECT
+            cc.user_name AS userName ,
+            COUNT(DISTINCT cc.id) AS clueCount
+        FROM
+            `b2b_client_clue` cc
+        JOIN `b2b_clue_alarm` ca ON ca.clue_id = cc.id
+        AND ca.alarm_time IS NOT NULL
+        <![CDATA[
+            AND ca.alarm_time < NOW()
+        ]]>
+        WHERE
+            cc.`status` IN (0, 1)
+        AND cc.is_delete = 0
+        AND cc.is_new = 1
+        AND cc.user_name != ''
+        AND cc.user_name IS NOT NULL
+        <if test="partnerId != null">
+            AND cc.partner_id = #{partnerId}
+        </if>
+        <if test="userId != null">
+            AND cc.user_id = #{userId}
+        </if>
+        GROUP BY
+            cc.user_name
+        
+    </select>
+
+    <select id="getWaitVisitedClueSummaryDao" parameterType="com.mini.dal.dto.dms.report.ReportDTO"
+            resultType="com.mini.dal.vo.dms.report.ClueUserSummaryVO">
+
+        SELECT
+            cc.user_name AS userName ,
+            COUNT(DISTINCT cc.id) AS clueCount
+        FROM
+        `b2b_client_clue` cc
+        JOIN `b2b_clue_alarm` ca ON ca.clue_id = cc.id
+        AND ca.alarm_time IS NOT NULL
+        <![CDATA[
+            AND ca.alarm_time >= NOW()
+        ]]>
+        WHERE
+            cc.`status` IN (0, 1)
+        AND cc.is_delete = 0
+        AND cc.is_new = 1
+        AND cc.user_name != ''
+        AND cc.user_name IS NOT NULL
+        <if test="partnerId != null">
+            AND cc.partner_id = #{partnerId}
+        </if>
+        <if test="userId != null">
+            AND cc.user_id = #{userId}
+        </if>
+        GROUP BY
+        cc.user_name
+
+    </select>
+    
+    <select id="getNotFollowClueSummaryDao" parameterType="com.mini.dal.dto.dms.report.ReportDTO" 
+            resultType="com.mini.dal.vo.dms.report.ClueUserSummaryVO">
+        SELECT
+            cc.user_name AS userName ,
+            COUNT(DISTINCT cc.id) AS clueCount
+        FROM
+            `b2b_client_clue` cc
+        WHERE
+            cc.`status` = 0
+        AND cc.is_delete = 0
+        AND cc.is_new = 1
+        AND cc.user_name != ''
+        AND cc.user_name IS NOT NULL
+        <if test="partnerId != null">
+            AND cc.partner_id = #{partnerId}
+        </if>
+        <if test="userId != null">
+            AND cc.user_id = #{userId}
+        </if>
+        GROUP BY
+            cc.user_name
+    </select>
+
+    <update id="updateClueNoUser" parameterType="java.lang.Long">
+        update b2b_client_clue
+        set user_id = null,
+        user_name = null
+        where user_id = #{userId,jdbcType=BIGINT}
+    </update>
+
+    <resultMap id="ResultMap" type="com.mini.dal.model.ClientClueDO">
+        <result column="id" jdbcType="BIGINT" property="id" />
+        <result column="user_id" jdbcType="BIGINT" property="userId" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
+        <result column="partner_id" jdbcType="BIGINT" property="partnerId" />
+        <result column="client_id" jdbcType="BIGINT" property="clientId" />
+        <result column="type" jdbcType="TINYINT" property="type" />
+        <result column="source" jdbcType="VARCHAR" property="source" />
+        <result column="level" jdbcType="TINYINT" property="level" />
+        <result column="visit_time_len" jdbcType="INTEGER" property="visitTimeLen" />
+        <result column="arrival_times" jdbcType="INTEGER" property="arrivalTimes" />
+        <result column="status" jdbcType="TINYINT" property="status" />
+        <result column="last_follow_time" jdbcType="TIMESTAMP" property="lastFollowTime" />
+        <result column="is_revisit" jdbcType="TINYINT" property="isRevisit" />
+        <result column="min_budget" jdbcType="INTEGER" property="minBudget" />
+        <result column="max_budget" jdbcType="INTEGER" property="maxBudget" />
+        <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+        <result column="target" jdbcType="VARCHAR" property="target" />
+        <result column="memo" jdbcType="VARCHAR" property="memo" />
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    </resultMap>
+
+    <sql id="cols">
+        id,user_id,user_name,partner_id,client_id,type,source,level,
+        visit_time_len,arrival_times,status,last_follow_time,is_revisit,
+        min_budget,max_budget,is_delete,target,memo,gmt_create,gmt_modified
+    </sql>
+
+    <update id="setClueOldByClientId" parameterType="java.lang.Long">
+        update b2b_client_clue
+        set is_new = 0
+        where client_id = #{clientId,jdbcType=BIGINT}
+    </update>
+
+</mapper>

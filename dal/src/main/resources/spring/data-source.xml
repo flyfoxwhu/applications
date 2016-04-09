@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/aop     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springframework.org/schema/tx      http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       "
+	default-autowire="byName">
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://${applications.db.url}:${applications.db.port}/${applications.db.name}?useUnicode=true&amp;characterEncoding=UTF-8" />
+		<property name="username" value="${applications.db.user}" />
+		<property name="password" value="${applications.db.password}" />
+	</bean>
+
+	<bean id="springManagedTransactionFactory" class="org.mybatis.spring.transaction.SpringManagedTransactionFactory" />
+
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 加载dal和biz中的mapper.xml文件 -->
+		<property name="mapperLocations" value="classpath:mybatis/mapper/**/*Mapper.xml" />
+		<!-- 同一个model -->
+		<property name="typeAliasesPackage" value="com.applications.dal.model.***" />
+		<property name="transactionFactory" ref="springManagedTransactionFactory" />
+	</bean>
+
+	<!-- 加载dal和biz中的mapper.java文件 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.applications.dal.mapper.ext" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryBean" />
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<tx:advice id="defaultTxAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add*" rollback-for="Exception" propagation="REQUIRED" isolation="READ_COMMITTED" />
+			<tx:method name="update*" rollback-for="Exception" propagation="REQUIRED" isolation="READ_COMMITTED" />
+			<tx:method name="do*" rollback-for="Exception" propagation="REQUIRED" isolation="READ_COMMITTED" />
+			<tx:method name="save*" rollback-for="Exception" propagation="REQUIRED" isolation="READ_COMMITTED" />
+			<tx:method name="get*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="count*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="query*" propagation="SUPPORTS" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="txPointcut"
+			expression="execution(* com.applications.service..*Impl.*(..)) || execution(* com.applications.service..*Manager.*(..))" />
+		<aop:advisor pointcut-ref="txPointcut" advice-ref="defaultTxAdvice" />
+	</aop:config>
+</beans>

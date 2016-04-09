@@ -45,9 +45,7 @@ atlassian-ide-plugin.xml
 # Crashlytics plugin (for Android Studio and IntelliJ)
 
 *.class
-/mini-web/target/
-/mini-assembly/target/
-
+/web/target/
 
 *.log
 .DS_Store

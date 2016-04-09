@@ -1,0 +1,23 @@
+{
+  "name": "mini-assets",
+  "description": "Assets for project Mini",
+  "version": "1.0.1",
+  "devDependencies": {
+    "compass-mixins-0.12.7": "compass-mixins#0.12.7"
+  },
+  "dependencies": {
+    "normalize.css-3.0.3": "normalize.css#3.0.3",
+    "jquery-1.12.0": "jquery#1.12.0",
+    "layer-1.9.3": "layer#*",
+    "fontawesome-4.5.0": "fontawesome#4.5.0",
+    "h5fx-0.2.3": "h5fx#0.2.3",
+    "icheck-1.0.2": "icheck#1.0.2",
+    "select2-4.0.1": "select2#4.0.1",
+    "suitcss-sass-0.1.0": "suitcss-sass#0.1.0",
+    "handlebars-4.0.5": "handlebars#4.0.5",
+    "jquery-2.1.4": "jquery#2.1.4",
+    "html5shiv-3.7.3": "html5shiv#3.7.3",
+    "page-nav-1.0.2": "page-nav#1.0.2",
+    "datepicker-0.3.1": "fengyuanchen/datepicker#0.3.1"
+  }
+}

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mini.dal.mapper.ext.UserClientExtMapper">
+
+    <resultMap id="clientResultMap" type="com.mini.dal.model.ClientDO">
+        <result column="client_id" jdbcType="BIGINT" property="clientId" />
+        <result column="client_name" jdbcType="VARCHAR" property="clientName" />
+        <result column="sex" jdbcType="TINYINT" property="sex" />
+        <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+        <result column="clue_id" jdbcType="BIGINT" property="clueId" />
+        <result column="level" jdbcType="TINYINT" property="level" />
+        <result column="type" jdbcType="TINYINT" property="type" />
+        <result column="status" jdbcType="TINYINT" property="status" />
+        <result column="source" jdbcType="VARCHAR" property="source" />
+        <result column="min_budget" jdbcType="INTEGER" property="minBudget" />
+        <result column="max_budget" jdbcType="INTEGER" property="maxBudget" />
+        <result column="visit_time_len" jdbcType="INTEGER" property="visitTimeLen" />
+        <result column="arrival_times" jdbcType="INTEGER" property="arrivalTimes" />
+        <result column="seller_id" jdbcType="BIGINT" property="sellerId" />
+        <result column="seller_name" jdbcType="VARCHAR" property="sellerName" />
+        <result column="alarm_time" jdbcType="TIMESTAMP" property="alarmTime" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="target" jdbcType="VARCHAR" property="target" />
+        <result column="memo" jdbcType="VARCHAR" property="memo" />
+        <result column="modifier" jdbcType="VARCHAR" property="modifier" />
+    </resultMap>
+
+    <select id="list" resultMap="clientResultMap" parameterType="java.util.Map">
+        select
+             CLIENT.id as client_id,
+             CLIENT.name as client_name,
+             CLIENT.sex as sex,
+             CLIENT.mobile as mobile,
+             CLUE.id as clue_id,
+             CLUE.level as level,
+             CLUE.type as type,
+             CLUE.status as status,
+             CLUE.source as source,
+             CLUE.max_budget as max_budget,
+             CLUE.min_budget as min_budget,
+             CLUE.visit_time_len as visit_time_len,
+             CLUE.arrival_times as arrival_times,
+             CLUE.user_id as seller_id,
+             CLUE.user_name as seller_name,
+             CLUE.target as target,
+             CLUE.memo as memo,
+             CLUE.modifier as modifier,
+             CLUE.gmt_create as create_time
+        from b2b_user_client CLIENT
+	      left outer join b2b_client_clue CLUE on CLUE.client_id = CLIENT.id
+	    where CLUE.is_delete = 0
+          and CLUE.partner_id = #{partnerId,jdbcType=BIGINT}
+
+        <if test=" isNew!=null ">
+          and CLUE.is_new = #{isNew}
+        </if>
+
+        <if test=" userId!=null and userId>0 ">
+          and CLUE.user_id = #{userId}
+        </if>
+
+        <if test=" clueStatus!=null and clueStatus!='' ">
+          and CLUE.status in (${clueStatus})
+        </if>
+
+        <if test=" levels!=null and levels!='' ">
+          and CLUE.level in (${levels})
+        </if>
+
+        <if test=" revisitType!=null ">
+          and CLUE.is_revisit = #{revisitType}
+        </if>
+
+        <if test=" minCreateTime!=null ">
+          and CLUE.gmt_create &gt;= #{minCreateTime}
+        </if>
+
+        <if test=" maxCreateTime!=null ">
+          and CLUE.gmt_create &lt;= #{maxCreateTime}
+        </if>
+
+        <if test=" minFollowUpTime!=null ">
+          and CLUE.last_follow_time &gt;= #{minFollowUpTime}
+        </if>
+
+        <if test=" maxFollowUpTime!=null ">
+          and CLUE.last_follow_time &lt;= #{maxFollowUpTime}
+        </if>
+
+        <if test=" sellerIds!=null and sellerIds!='' ">
+          and CLUE.user_id in (${sellerIds})
+        </if>
+
+        <if test=" sort == 1 ">
+            order by CLUE.last_follow_time desc, CLUE.id desc
+        </if>
+        <if test=" sort == 2 ">
+            order by CLUE.id desc, CLUE.gmt_create desc
+        </if>
+
+        limit #{start}, #{pageSize}
+    </select>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into b2b_user_client(user_id, user_name, partner_id, mobile, name)
+        values
+        <foreach collection="userClientDOList" item="client" index="index" separator=",">
+            (#{client.userId,jdbcType=BIGINT}, #{client.userName,jdbcType=VARCHAR}, #{client.partnerId,jdbcType=BIGINT}, #{client.mobile,jdbcType=VARCHAR}, #{client.name,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+
+</mapper>

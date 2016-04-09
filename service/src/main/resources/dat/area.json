@@ -1,0 +1,26 @@
+[{
+  "areaId": 1,
+  "name": "全国",
+  "areaSort": 1,
+  "remark": "全国"
+}, {
+  "areaId": 2,
+  "name": "东区",
+  "areaSort": 2,
+  "remark": "大区"
+}, {
+  "areaId": 3,
+  "name": "南区",
+  "areaSort": 3,
+  "remark": "大区"
+}, {
+  "areaId": 4,
+  "name": "北区",
+  "areaSort": 4,
+  "remark": "大区"
+}, {
+  "areaId": 5,
+  "name": "西区",
+  "areaSort": 5,
+  "remark": "大区"
+}]

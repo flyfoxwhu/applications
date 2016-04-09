@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mini.dal.mapper.ext.PartnerExtMapper">
+
+    <resultMap id="BaseResultMap" type="com.mini.dal.model.PartnerDO">
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="corp_name" jdbcType="VARCHAR" property="corpName"/>
+        <result column="corp_description" jdbcType="VARCHAR" property="corpDescription"/>
+        <result column="account_balance" jdbcType="BIGINT" property="accountBalance"/>
+        <result column="contacts_name" jdbcType="VARCHAR" property="contactsName"/>
+        <result column="contacts_phone" jdbcType="VARCHAR" property="contactsPhone"/>
+        <result column="fax" jdbcType="VARCHAR" property="fax"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="city_id" jdbcType="INTEGER" property="cityId"/>
+        <result column="city_name" jdbcType="VARCHAR" property="cityName"/>
+        <result column="provice_id" jdbcType="INTEGER" property="proviceId"/>
+        <result column="detail_address" jdbcType="VARCHAR" property="detailAddress"/>
+        <result column="credentials_imgs" jdbcType="VARCHAR" property="credentialsImgs"/>
+        <result column="certificate_code" jdbcType="VARCHAR" property="certificateCode"/>
+        <result column="type" jdbcType="TINYINT" property="type"/>
+        <result column="store_imgs" jdbcType="VARCHAR" property="storeImgs"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="is_verify" jdbcType="TINYINT" property="isVerify"/>
+        <result column="gmt_modified" jdbcType="VARCHAR" property="gmtModified"/>
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
+        <result column="contract_imgs" jdbcType="VARCHAR" property="contractImgs"/>
+        <result column="legal_cert_imgs" jdbcType="VARCHAR" property="legalCertImgs"/>
+        <result column="corp_logo_imgs" jdbcType="VARCHAR" property="corpLogoImgs"/>
+        <result column="enterprise_type" jdbcType="TINYINT" property="enterpriseType"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+        id,corp_name,corp_description,account_balance,contacts_name,contacts_phone,fax,email,city_id,
+        city_name,provice_id,detail_address,credentials_imgs,certificate_code,type,store_imgs,memo,
+        status,is_verify,gmt_modified,gmt_create,contract_imgs,legal_cert_imgs,corp_logo_imgs,enterprise_type
+    </sql>
+
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<toolbox>
+    <!--前端vm的rpc调用接口暴露-->
+    <tool>
+        <key>escapeTool</key>
+        <scope>application</scope>
+        <class>org.apache.velocity.tools.generic.EscapeTool</class>
+    </tool>
+    <tool>
+        <key>calendarUtil</key>
+        <scope>application</scope>
+        <class>com.applications.common.utils.CalendarUtil</class>
+    </tool>
+    <tool>
+        <key>stringUtil</key>
+        <scope>application</scope>
+        <class>com.applications.common.utils.StringUtil</class>
+    </tool>
+    <tool>
+        <key>price</key>
+        <scope>application</scope>
+        <class>com.applications.common.utils.PriceUtil</class>
+    </tool>
+    <tool>
+        <key>dateTool</key>
+        <scope>application</scope>
+        <class>org.apache.velocity.tools.generic.DateTool</class>
+    </tool>
+
+</toolbox>

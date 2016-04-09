@@ -1,0 +1,31 @@
+applications.db.name      = ${applications_db_name}
+applications.db.password  = ${applications_db_password}
+applications.db.port      = ${applications_db_port}
+applications.db.url       = ${applications_db_url}
+applications.db.user      = ${applications_db_user}
+
+#enviroment
+applications.env  = ${applications_env}
+
+#log
+applications.log.level  = ${applications_log_level}
+applications.log.path   = ${applications_log_path}
+
+applications.service.url  = ${applications_service_url}
+
+#redis
+redis.domain  = ${redis_domain}
+redis.password  = ${redis_password}
+
+redis.pool.maxActive      = ${redis_pool_maxActive}
+redis.pool.maxIdle        = ${redis_pool_maxIdle}
+redis.pool.maxWaitMillis  = ${redis_pool_maxWaitMillis}
+redis.pool.testOnBorrow   = ${redis_pool_testOnBorrow}
+
+redis.port     = ${redis_port}
+redis.timeout  = ${redis_timeout}
+
+#mail
+sender.name      = ${sender_name}
+sender.password  = ${sender_password}
+sender.host      = ${sender_host}

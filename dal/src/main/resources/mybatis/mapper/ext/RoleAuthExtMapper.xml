@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mini.dal.mapper.ext.RoleAuthExtMapper">
+
+    <resultMap id="RoleAuthMap" type="com.mini.dal.model.RoleAuthDO">
+        <result column="id" jdbcType="BIGINT" property="id" />
+        <result column="role_code" jdbcType="VARCHAR" property="roleCode" />
+        <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+        <result column="auth_code" jdbcType="VARCHAR" property="authCode" />
+        <result column="auth_name" jdbcType="VARCHAR" property="authName" />
+        <result column="status" jdbcType="TINYINT" property="status" />
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,role_code,role_name,auth_code,auth_name,status,gmt_modified,gmt_create
+    </sql>
+
+    <select id="findAuthByRoleCode" parameterType="java.lang.Long" resultMap="RoleAuthMap">
+        select <include refid="Base_Column_List" />
+        from b2b_role_auth where role_code = #{roleCode,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findAuthByRoleCodes" parameterType="java.util.List" resultMap="RoleAuthMap">
+        select <include refid="Base_Column_List" />
+        from b2b_role_auth where role_code in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

@@ -1,0 +1,27 @@
+package ${doPackage};
+
+import java.io.Serializable;
+import java.util.Date;
+
+public class ${className}${doSuffix} implements Serializable {
+
+    private static final long serialVersionUID = ${serialVersionUID}L;
+
+#foreach($item in $list)
+    /**
+     * This field corresponds to the database column ${tableName}.${item.columnName}
+     */
+    private ${item.javaType} ${item.propName};
+
+#end
+#foreach($item in $list)
+	public ${item.javaType} ${item.getMethod}() {
+		return ${item.propName};
+	}
+
+	public void ${item.setMethod}(${item.javaType} ${item.propName}) {
+		this.${item.propName} = ${item.propName};
+	}
+
+#end
+}

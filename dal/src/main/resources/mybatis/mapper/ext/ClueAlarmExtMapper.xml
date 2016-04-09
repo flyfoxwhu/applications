@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mini.dal.mapper.ext.ClueAlarmExtMapper">
+    <update id="closeClueAlarm" parameterType="java.lang.Long">
+        update b2b_clue_alarm
+        set status = 2
+        where user_id = #{userId,jdbcType=BIGINT}
+    </update>
+
+    <update id="close">
+        update b2b_clue_alarm
+        set status = 3
+        where clue_id = #{clueId}
+          and alarm_type = #{alarmType}
+    </update>
+</mapper>

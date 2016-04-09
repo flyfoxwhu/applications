@@ -1,0 +1,118 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/aop     http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/mvc     http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       ">
+
+	<!-- 自动扫描包名 -->
+	<context:component-scan base-package="com.applications.web.controller">
+		<context:exclude-filter type="regex" expression=".*Moker" />
+	</context:component-scan>
+
+	<!--扩展VelocityLayoutViewResolver -->
+	<bean class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
+		<property name="prefix" value="/template/" />
+		<property name="suffix" value=".vm" />
+		<property name="contentType" value="text/html;charset=utf-8"></property>
+		<property name="toolboxConfigLocation" value="/velocity/velocity-toolbox.xml" />
+		<property name="layoutUrl" value="/template/layouts/default.vm"></property>
+	</bean>
+
+	<!-- velocity模板引擎 -->
+	<bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<property name="resourceLoaderPath">
+			<value>/</value>
+		</property>
+		<property name="velocityProperties">
+			<props>
+				<prop key="input.encoding">utf-8</prop>
+				<prop key="output.encoding">utf-8</prop>
+				<prop key="contentType">text/html;charset=utf-8</prop>
+			</props>
+		</property>
+		<property name="configLocation" value="/velocity/velocity.properties" />
+	</bean>
+
+	<!-- <mvc:annotation-driven> 激活@Controller模式，自动注册RequestMappingHandlerMapping与RequestMappingHandlerAdapter 
+		，也可以如下方所示，手动写出 -->
+	<!--请求与返回的json支持 -->
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+			<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/html;charset=UTF-8</value>
+						<value>application/json</value>
+					</list>
+				</property>
+				<property name="features">
+					<list>
+						<value>WriteMapNullValue</value>
+						<value>QuoteFieldNames</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<!-- Spring3.1开始的注解 HandlerMapping -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
+	<!--Spring3.1开始的注解 HandlerAdapter -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="webBindingInitializer" ref="webBindingInitializer" />
+		<property name="messageConverters">
+			<list>
+				<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<value>text/html;charset=UTF-8</value>
+						</list>
+					</property>
+				</bean>
+				<bean id="byteArray_hmc" class="com.applications.common.dataconvert.ByteArrayMessageConverter" />
+				<bean id="resource_hmc" class="org.springframework.http.converter.ResourceHttpMessageConverter" />
+				<bean id="source_hmc" class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />
+				<bean id="xmlAwareForm_hmc"
+					class="org.springframework.http.converter.xml.XmlAwareFormHttpMessageConverter" />
+				<bean id="jaxb2RootElement_hmc"
+					class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+	<bean id="webBindingInitializer" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+		<property name="conversionService" ref="conversionService" />
+	</bean>
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<set>
+				<bean class="com.applications.common.dataconvert.StringToDateConverter" />
+				<bean class="com.applications.common.dataconvert.StringToIntegerConverter" />
+				<bean class="com.applications.common.dataconvert.StringToBigDecimalConverter" />
+			</set>
+		</property>
+	</bean>
+
+	<!-- 文件上传解析器 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="20971520" /><!-- 10MB -->
+	</bean>
+
+	<!--<bean id="appLoginAdvice" class="com.applications.web.interceptors.AppLoginAdvice"></bean>
+
+	<bean id="appInterfaceLogAdvice" class="com.mini.web.interceptors.AppInterfaceLogAdvice"></bean>
+
+	<aop:config>
+		<aop:advisor pointcut="execution(* com.applications.web.controller.appinterface..*.*(..))" advice-ref="appLoginAdvice" />
+		<aop:advisor pointcut="execution(* com.applications.web.controller.appinterface..*.*(..))" advice-ref="appInterfaceLogAdvice" />
+	</aop:config>-->
+
+	<!--异常处理 -->
+	<!--<bean class="com.mini.common.config.ExceptionResolver"/> -->
+	<!-- 对静态资源文件的访问 -->
+	<!-- 	<mvc:resources mapping="/res/**" location="/res/" cache-period="31556926" /> -->
+
+</beans>

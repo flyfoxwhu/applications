@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mini.dal.mapper.ext.PartnerContactsExtMapper">
+
+        <resultMap id="PartnerExtMap" type="com.mini.dal.model.PartnerContactsDO">
+            <result column="id" jdbcType="BIGINT" property="id" />
+            <result column="partner_id" jdbcType="BIGINT" property="partnerId" />
+            <result column="contacts_name" jdbcType="VARCHAR" property="contactsName" />
+            <result column="contacts_phone" jdbcType="VARCHAR" property="contactsPhone" />
+            <result column="status" jdbcType="TINYINT" property="status" />
+            <result column="memo" jdbcType="VARCHAR" property="memo" />
+            <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+            <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+        </resultMap>
+
+    <sql id="Partner_Column_List">
+        id,partner_id,contacts_name,contacts_phone,status,memo,gmt_modified,gmt_create
+    </sql>
+
+    <select id="findContractsByPartnerId" parameterType="java.lang.Long" resultMap="PartnerExtMap">
+        select <include refid="Partner_Column_List" /> from b2b_partner_contacts where partner_id = #{partnerId,jdbcType=BIGINT}
+        ORDER BY id DESC
+    </select>
+
+</mapper>
