@@ -1,0 +1,78 @@
+# Created by .ignore support plugin (hsz.mobi)
+### JetBrains template
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion
+
+*.iml
+
+## Directory-based project format:
+.idea/
+# if you remove the above rule, at least ignore the following:
+
+# User-specific stuff:
+# .idea/workspace.xml
+# .idea/tasks.xml
+# .idea/dictionaries
+
+# Sensitive or high-churn files:
+# .idea/dataSources.ids
+# .idea/dataSources.xml
+# .idea/sqlDataSources.xml
+# .idea/dynamic.xml
+# .idea/uiDesigner.xml
+
+# Gradle:
+# .idea/gradle.xml
+# .idea/libraries
+
+# Mongo Explorer plugin:
+# .idea/mongoSettings.xml
+
+## File-based project format:
+*.ipr
+*.iws
+
+## Plugin-specific files:
+
+# IntelliJ
+/out/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+
+*.class
+/mini-web/target/
+/mini-assembly/target/
+
+
+*.log
+.DS_Store
+target/classes/db.config
+target/classes/generate_tables.config
+target/classes/template/do.txt
+target/classes/template/mapper-ext.txt
+target/classes/template/mapper.txt
+target/classes/template/query.txt
+target/classes/template/sqlmap-ext.txt
+target/classes/template/sqlmap.txt
+
+
+
+# 本地化配置
+
+.rocketz/
+rocketz-conf.json
+target/
+build_*.sh
+
+
+
+# 前端工程相关
+
+node_modules/
+
+webapp_*/
