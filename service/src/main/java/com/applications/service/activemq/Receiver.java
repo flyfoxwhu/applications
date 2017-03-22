@@ -35,7 +35,7 @@ public class Receiver implements MessageListener  {
             // 获取操作连接
             session = connection.createSession(Boolean.FALSE,
                     Session.AUTO_ACKNOWLEDGE);
-            // 获取session注意参数值xingbo.xu-queue是一个服务器的queue，须在在ActiveMq的console配置
+            // 获取session注意参数值队列
             destination = session.createQueue(ActiveConstant.QUEUE);
             consumer = session.createConsumer(destination);
             //初始化MessageListener
