@@ -12,9 +12,6 @@ import javax.jms.*;
 @Slf4j
 public class Receiver implements MessageListener  {
 
-    private static final String BROKER_URL = "tcp://localhost:61616";
-    private static final String QUEUE = "FirstQueue";
-
     public static void main(String[] args) {
         // ConnectionFactory ：连接工厂，JMS 用它创建连接
         ConnectionFactory connectionFactory;
@@ -29,7 +26,7 @@ public class Receiver implements MessageListener  {
         connectionFactory = new ActiveMQConnectionFactory(
                 ActiveMQConnection.DEFAULT_USER,
                 ActiveMQConnection.DEFAULT_PASSWORD,
-                BROKER_URL);
+                ActiveConstant.BROKER_URL);
         try {
             // 构造从工厂得到连接对象
             connection = connectionFactory.createConnection();
@@ -39,7 +36,7 @@ public class Receiver implements MessageListener  {
             session = connection.createSession(Boolean.FALSE,
                     Session.AUTO_ACKNOWLEDGE);
             // 获取session注意参数值xingbo.xu-queue是一个服务器的queue，须在在ActiveMq的console配置
-            destination = session.createQueue(QUEUE);
+            destination = session.createQueue(ActiveConstant.QUEUE);
             consumer = session.createConsumer(destination);
             //初始化MessageListener
             Receiver me = new Receiver();

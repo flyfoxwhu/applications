@@ -10,8 +10,6 @@ import javax.jms.*;
  */
 public class Sender {
 
-    private static final int SEND_NUMBER = 5;
-
     public static void main(String[] args) {
         // ConnectionFactory ：连接工厂，JMS 用它创建连接
         ConnectionFactory connectionFactory;
@@ -28,7 +26,7 @@ public class Sender {
         connectionFactory = new ActiveMQConnectionFactory(
                 ActiveMQConnection.DEFAULT_USER,
                 ActiveMQConnection.DEFAULT_PASSWORD,
-                "tcp://localhost:61616");
+                ActiveConstant.BROKER_URL);
         try {
             // 构造从工厂得到连接对象
             connection = connectionFactory.createConnection();
@@ -38,7 +36,7 @@ public class Sender {
             session = connection.createSession(Boolean.TRUE,
                     Session.AUTO_ACKNOWLEDGE);
             // 获取session注意参数值xingbo.xu-queue是一个服务器的queue，须在在ActiveMq的console配置
-            destination = session.createQueue("FirstQueue");
+            destination = session.createQueue(ActiveConstant.QUEUE);
             // 得到消息生成者【发送者】
             producer = session.createProducer(destination);
             // 设置不持久化，此处学习，实际根据项目决定
@@ -59,7 +57,7 @@ public class Sender {
 
     public static void sendMessage(Session session, MessageProducer producer)
             throws Exception {
-        for (int i = 1; i <= SEND_NUMBER; i++) {
+        for (int i = 1; i <= ActiveConstant.SEND_NUMBER; i++) {
             TextMessage message = session
                     .createTextMessage("ActiveMq 发送的消息" + i);
             // 发送消息到目的地方
