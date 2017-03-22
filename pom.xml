@@ -468,6 +468,38 @@
 
             <!--============================ curator =========================== -->
 
+            <!--============================ rxjava =========================== -->
+            <dependency>
+                <groupId>io.reactivex.rxjava2</groupId>
+                <artifactId>rxjava</artifactId>
+                <version>2.0.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.reactivestreams</groupId>
+                <artifactId>reactive-streams</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.reactivestreams</groupId>
+                <artifactId>reactive-streams-tck</artifactId>
+                <version>1.0.0</version>
+                <scope>test</scope>
+            </dependency>
+            <!--============================ rxjava =========================== -->
+
+            <!-- activemq 相关maven依赖 -->
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-core</artifactId>
+                <version>5.5.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-pool</artifactId>
+                <version>5.7.0</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
     <dependencies>
