@@ -51,7 +51,9 @@ public class Receiver {
             }
             ActiveListener me = new ActiveListener();
             //给消费者设定监听对象
-            consumer.setMessageListener(me);
+            while(true){
+                consumer.setMessageListener(me);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
