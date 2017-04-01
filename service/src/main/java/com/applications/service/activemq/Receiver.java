@@ -42,13 +42,12 @@ public class Receiver {
     }
 
     public static void main(String[] args) {
-
-
         try {
-            //初始化MessageListener
+            //如果consumer为空就进行初始化
             if (consumer == null) {
                 new Receiver(ActiveConstant.QUEUE);
             }
+            //初始化MessageListener
             ActiveListener me = new ActiveListener();
             //给消费者设定监听对象
             while(true){

@@ -58,6 +58,7 @@ public class Sender {
     public static void main(String[] args) {
 
         try {
+            //如果生产者为空就进行初始化
             if (producer==null){
                 new  Sender(ActiveConstant.QUEUE);
             }
