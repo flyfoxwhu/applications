@@ -1,4 +1,4 @@
-package com.applications.service.redis.intf;
+package com.applications.service.redis;
 
 import java.util.Collection;
 import java.util.List;
@@ -86,12 +86,20 @@ public interface RedisManager {
     Long delete(String key);
 
     /**
-     * 验证是否存在
+     * 批量删除
      *
      * @param keys
      * @return
      */
     boolean delete(List<String> keys);
+
+    /**
+     * 验证是否存在
+     *
+     * @param key
+     * @return
+     */
+    boolean exists(String key);
 
     /**
      * 移除一个分数从一个key中

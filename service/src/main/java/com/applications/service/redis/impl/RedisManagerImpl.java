@@ -1,7 +1,7 @@
 package com.applications.service.redis.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.applications.service.redis.intf.RedisManager;
+import com.applications.service.redis.RedisManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

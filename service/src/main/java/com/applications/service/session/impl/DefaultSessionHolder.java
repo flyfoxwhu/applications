@@ -1,7 +1,7 @@
 package com.applications.service.session.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.applications.service.redis.intf.RedisManager;
+import com.applications.service.redis.RedisManager;
 import com.applications.service.session.intf.Session;
 import com.applications.service.session.intf.SessionHolder;
 import com.applications.common.utils.StringUtil;

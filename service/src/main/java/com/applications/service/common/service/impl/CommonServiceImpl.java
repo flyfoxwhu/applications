@@ -7,7 +7,7 @@ import com.applications.common.utils.KeyUtil;
 import com.applications.common.utils.SendEmailUtil;
 import com.applications.service.common.dto.EmailForm;
 import com.applications.service.common.service.CommonService;
-import com.applications.service.redis.intf.RedisManager;
+import com.applications.service.redis.RedisManager;
 import com.applications.service.utils.BizResult;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;

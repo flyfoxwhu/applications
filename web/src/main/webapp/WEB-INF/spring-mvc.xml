@@ -101,6 +101,19 @@
 		<property name="maxUploadSize" value="20971520" /><!-- 10MB -->
 	</bean>
 
+	<!-- Curator的FactoryBean，Spring启动时创建Curator实例。 -->
+	<bean id="zookeeperFactoryBean" class="com.applications.service.zk.ZookeeperFactoryBean" lazy-init="false">
+		<property name="zkConnectionString" value="hadoopmaster:2181"/>
+		<!-- 设置zookeeper的事件监听者，本例是一个logback日志级别znode监听器 -->
+		<property name="listeners">
+			<list>
+				<bean class="com.applications.service.zk.impl.LogbackLevelListener">
+					<constructor-arg value="/zk_test/logbacklevel"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
 	<!--<bean id="appLoginAdvice" class="com.applications.web.interceptors.AppLoginAdvice"></bean>
 
 	<bean id="appInterfaceLogAdvice" class="com.mini.web.interceptors.AppInterfaceLogAdvice"></bean>
