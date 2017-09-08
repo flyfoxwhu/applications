@@ -91,7 +91,7 @@
                 <artifactId>autoconfig-maven-plugin</artifactId>
                 <configuration>
                     <exploding>true</exploding>
-                    <userProperties>${user.home}/aapplications.properties</userProperties>
+                    <userProperties>${user.home}/applications.properties</userProperties>
                 </configuration>
                 <executions>
                     <execution>

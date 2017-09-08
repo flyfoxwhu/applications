@@ -13,8 +13,8 @@ import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
-public class MiniWebUtil {
-    private static final Logger log = LoggerFactory.getLogger(MiniWebUtil.class);
+public class AppplicationUtil {
+    private static final Logger log = LoggerFactory.getLogger(AppplicationUtil.class);
 
     /**
      * 导出excle
@@ -40,14 +40,14 @@ public class MiniWebUtil {
             cellStyle.setAlignment(HSSFCellStyle.ALIGN_LEFT);// 左右居中
 
             for (Map m : sheetMapList) {
-                Sheet sheet = wb.createSheet(MiniUtil.getString("sheet", m));
+                Sheet sheet = wb.createSheet(ChangeUtil.getString("sheet", m));
                 List<List<String>> list = (List<List<String>>) m.get("list");
                 for (int j = 0; j < list.size(); j++) {//行
                     Row row = sheet.createRow((short) j);
                     List<String> l = list.get(j);
                     for (int i = 0; i < l.size(); i++) {//列
                         Cell cell = row.createCell(i);
-                        if (MiniUtil.isNumber(String.valueOf(l.get(i)))) {
+                        if (ChangeUtil.isNumber(String.valueOf(l.get(i)))) {
                             cell.setCellValue(Double.valueOf(String.valueOf(l.get(i))));
                         } else {
                             cell.setCellValue(l.get(i));

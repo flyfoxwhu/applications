@@ -1,10 +1,9 @@
 package com.applications.mybatisgen;
 
 import com.google.common.collect.Maps;
-import com.applications.common.utils.MiniUtil;
+import com.applications.common.utils.ChangeUtil;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.velocity.VelocityContext;
@@ -357,7 +356,7 @@ public class MyBatisGenCore {
         param.put(MyBatisGenConst.VP_COLS_WITHOUT_COMMON_COLUMNS, colsWithoutCommColumns);
         String cols = MyBatisGenConst.COMMON_COLUMN_STR + colsWithoutCommColumns;
         param.put(MyBatisGenConst.VP_COLS, cols);
-        param.put(MyBatisGenConst.VP_COLUMN_PK_NAME, MiniUtil.getList(colsWithoutCommColumns, ",").get(0));
+        param.put(MyBatisGenConst.VP_COLUMN_PK_NAME, ChangeUtil.getList(colsWithoutCommColumns, ",").get(0));
 
         String sqlmapResult = merge(sqlmapTemplate, param);
         String mapperResult = merge(mapperTemplate, param);

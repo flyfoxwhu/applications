@@ -1,8 +1,5 @@
 package com.applications.common.enums;
 
-/**
- * Created by pyshift on 15/1/20.
- */
 public enum PrefixEnum {
 
     mobile("m:"),//手机验证码

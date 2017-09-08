@@ -6,13 +6,13 @@ import java.io.File;
 public class MyBatisGenConst {
 
     // 包名
-    public static final String MAIN_PACKAGE = "com.mini.dal";
-    public static final String DO_PACKAGE = "com.mini.dal.model";
-    public static final String QUERY_PACKAGE = "com.mini.dal.query";
-    public static final String MAPPER_PACKAGE = "com.mini.dal.mapper";
-    public static final String MAPPER_EXT_PACKAGE = "com.mini.dal.mapper.ext";
-    public static final String TABLE_PREFIX = "mini_";//系统所有表名前缀
-    public static final String TABLE_PREFIX_MHC = "b2b_";//系统所有买好车表名前缀
+    public static final String MAIN_PACKAGE = "com.application.dal";
+    public static final String DO_PACKAGE = "com.application.dal.model";
+    public static final String QUERY_PACKAGE = "com.application.dal.query";
+    public static final String MAPPER_PACKAGE = "com.application.dal.mapper";
+    public static final String MAPPER_EXT_PACKAGE = "com.application.dal.mapper.ext";
+    public static final String TABLE_PREFIX = "application_";//系统所有表名前缀
+    public static final String TABLE_PREFIX_MHC = "test_";//系统所有买好车表名前缀
     public static final String QUERY_PREFIX = "Query";
     public static final String MAPPER_SUFFIX = "Mapper";
     public static final String MAPPER_EXT_SUFFIX = "ExtMapper";
@@ -21,19 +21,19 @@ public class MyBatisGenConst {
     // 工作目录
     public static final String WORK_DIR = System.getProperty("user.dir") + File.separator;
     // mapper xml 输出目录
-    public static final String MAPPER_XML_DIR = WORK_DIR + "mini-dal/src/main/resources/mybatis/mapper/";
+    public static final String MAPPER_XML_DIR = WORK_DIR + "application-dal/src/main/resources/mybatis/mapper/";
     // mapper-ext xml 输出目录
-    public static final String MAPPER_EXT_XML_DIR = WORK_DIR + "mini-dal/src/main/resources/mybatis/mapper/ext/";
+    public static final String MAPPER_EXT_XML_DIR = WORK_DIR + "application-dal/src/main/resources/mybatis/mapper/ext/";
     // do/model 输出目录
-    public static final String MAPPER_DO_DIR = WORK_DIR + "mini-dal/src/main/java/com/mini/dal/model";
+    public static final String MAPPER_DO_DIR = WORK_DIR + "application-dal/src/main/java/com/application/dal/model";
 
     // query/query 输出目录
-    public static final String MAPPER_QUERY_DIR = WORK_DIR + "mini-dal/src/main/java/com/mini/dal/query";
+    public static final String MAPPER_QUERY_DIR = WORK_DIR + "application-dal/src/main/java/com/application/dal/query";
 
     // mapper java 输出目录
-    public static final String MAPPER_JAVA_DIR = WORK_DIR + "mini-dal/src/main/java/com/mini/dal/mapper";
+    public static final String MAPPER_JAVA_DIR = WORK_DIR + "application-dal/src/main/java/com/application/dal/mapper";
     // mapper-ext java 输出目录
-    public static final String MAPPER_EXT_JAVA_DIR = WORK_DIR + "mini-dal/src/main/java/com/mini/dal/mapper/ext";
+    public static final String MAPPER_EXT_JAVA_DIR = WORK_DIR + "mini-dal/src/main/java/com/application/dal/mapper/ext";
     // java数据对象类模板
     public static final String DO_TEMPLATE = ClassLoader.getSystemResource("template/do.txt").getPath();//  "resources/template/do.txt";
     // query 模板

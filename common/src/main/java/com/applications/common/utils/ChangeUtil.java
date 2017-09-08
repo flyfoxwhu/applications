@@ -9,7 +9,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.*;
 
-public class MiniUtil {
+public class ChangeUtil {
 
     public static Long getLong(String key, Map m) {
         if (m == null || key == null || m.get(key) == null) {
@@ -86,9 +86,9 @@ public class MiniUtil {
         }
         char c = 160;
         String[] repList = {String.valueOf(c), "，", ",", "、", "。", ".", "(", ")", "（", "）", "\n", "\t", " ","\u2795"};
-        List<String> list = MiniUtil.getList(str.replace("\"", ""), ",");
+        List<String> list = ChangeUtil.getList(str.replace("\"", ""), ",");
         for (String rep : repList) {
-            list = MiniUtil.getList(list, rep);
+            list = ChangeUtil.getList(list, rep);
         }
         return list;
     }
