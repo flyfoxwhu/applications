@@ -105,6 +105,10 @@
             <artifactId>zkclient</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.github.adyliu</groupId>
+            <artifactId>zkclient</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.netflix.curator</groupId>
             <artifactId>curator-framework</artifactId>
         </dependency>
@@ -191,14 +195,6 @@
         <!--单元测试  end-->
         <dependency>
             <groupId>com.qiniu</groupId>
-            <artifactId>sdk</artifactId>
-        </dependency>
-
-        <!-- ======================================== -->
-        <!-- 顽兔 -->
-        <!-- ======================================== -->
-        <dependency>
-            <groupId>com.alibaba.media</groupId>
             <artifactId>sdk</artifactId>
         </dependency>
 
