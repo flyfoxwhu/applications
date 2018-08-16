@@ -1,6 +1,6 @@
 package com.applications.common.utils;
 
-import org.apache.velocity.*;
+import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 
 import java.io.StringWriter;

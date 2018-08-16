@@ -1,15 +1,12 @@
 package com.applications.service.distribute.chapter05.$5_3_5;
-import java.util.concurrent.CountDownLatch;
 
-import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.KeeperException;
-import org.apache.zookeeper.WatchedEvent;
-import org.apache.zookeeper.Watcher;
+import org.apache.zookeeper.*;
 import org.apache.zookeeper.Watcher.Event.EventType;
 import org.apache.zookeeper.Watcher.Event.KeeperState;
 import org.apache.zookeeper.ZooDefs.Ids;
-import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.Stat;
+
+import java.util.concurrent.CountDownLatch;
 
 // ZooKeeper API 更新节点数据内容，使用同步(sync)接口。
 public class SetData_API_Sync_Usage implements Watcher {

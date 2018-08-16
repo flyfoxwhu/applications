@@ -1,10 +1,10 @@
 package com.applications.service.rxjava;
 
-import io.reactivex.*;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
-import org.reactivestreams.Subscriber;
 
 /**
  * Created by hukaisheng on 2017/3/20.

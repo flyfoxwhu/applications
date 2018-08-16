@@ -1,8 +1,5 @@
 package com.applications.service.distribute.chapter07.$7_1_4;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException.AuthFailedException;
 import org.apache.zookeeper.WatchedEvent;
@@ -10,6 +7,9 @@ import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooDefs.Ids;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.ACL;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 清单7-1-4-2 使用正确的scheme进行授权

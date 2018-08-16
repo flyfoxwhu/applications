@@ -1,11 +1,11 @@
 package com.applications.service.distribute.chapter05.$5_3_1;
 
-import java.util.concurrent.CountDownLatch;
-
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.Watcher.Event.KeeperState;
 import org.apache.zookeeper.ZooKeeper;
+
+import java.util.concurrent.CountDownLatch;
 
 //Chapter: 5.3.1 Java API -> 创建连接 -> 创建一个最基本的ZooKeeper对象实例，复用sessionId和
 public class ZooKeeper_Constructor_Usage_With_SID_PASSWD implements Watcher {

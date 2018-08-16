@@ -1,16 +1,12 @@
 package com.applications.service.distribute;
 
-import java.io.IOException;
-import java.util.concurrent.CountDownLatch;
-
-import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.KeeperException;
-import org.apache.zookeeper.WatchedEvent;
-import org.apache.zookeeper.Watcher;
+import org.apache.zookeeper.*;
 import org.apache.zookeeper.Watcher.Event.EventType;
 import org.apache.zookeeper.Watcher.Event.KeeperState;
 import org.apache.zookeeper.ZooDefs.Ids;
-import org.apache.zookeeper.ZooKeeper;
+
+import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * ZooKeeper API 获取节点数据内容，使用异步(async)接口。

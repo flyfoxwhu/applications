@@ -1,7 +1,5 @@
 package com.applications.common.dto;
 
-import lombok.Data;
-
 /**
  * Created by hukaisheng on 16/3/9.
  */

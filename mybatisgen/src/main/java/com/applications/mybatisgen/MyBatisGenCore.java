@@ -1,8 +1,7 @@
 package com.applications.mybatisgen;
 
-import com.google.common.collect.Maps;
 import com.applications.common.utils.ChangeUtil;
-
+import com.google.common.collect.Maps;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;

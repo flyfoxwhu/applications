@@ -1,7 +1,6 @@
 package com.applications.common.utils;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
 import javax.activation.DataHandler;

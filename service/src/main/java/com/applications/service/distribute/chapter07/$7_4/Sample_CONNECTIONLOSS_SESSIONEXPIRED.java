@@ -1,12 +1,12 @@
 package com.applications.service.distribute.chapter07.$7_4;
 
-import java.util.concurrent.CountDownLatch;
-
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.Watcher.Event.EventType;
 import org.apache.zookeeper.Watcher.Event.KeeperState;
 import org.apache.zookeeper.ZooKeeper;
+
+import java.util.concurrent.CountDownLatch;
 
 public class Sample_CONNECTIONLOSS_SESSIONEXPIRED implements Watcher {
 

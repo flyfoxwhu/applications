@@ -1,11 +1,11 @@
 package com.applications.service.session.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.applications.common.utils.StringUtil;
+import com.applications.common.utils.UUIDUtils;
 import com.applications.service.redis.RedisManager;
 import com.applications.service.session.intf.Session;
 import com.applications.service.session.intf.SessionHolder;
-import com.applications.common.utils.StringUtil;
-import com.applications.common.utils.UUIDUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

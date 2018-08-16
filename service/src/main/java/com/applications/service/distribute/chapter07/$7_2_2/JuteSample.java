@@ -1,11 +1,11 @@
 package com.applications.service.distribute.chapter07.$7_2_2;
 
-import java.io.ByteArrayOutputStream;
-import java.nio.ByteBuffer;
-
 import org.apache.jute.BinaryInputArchive;
 import org.apache.jute.BinaryOutputArchive;
 import org.apache.zookeeper.server.ByteBufferInputStream;
+
+import java.io.ByteArrayOutputStream;
+import java.nio.ByteBuffer;
 
 //使用Jute进行序列化
 public class JuteSample {

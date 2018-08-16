@@ -1,9 +1,11 @@
 package com.applications.service.distribute.chapter05.$5_4_2;
-import java.io.File;
+
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.curator.test.TestingServer;
+
+import java.io.File;
 
 public class TestingServer_Sample {
 	static String path = "/zookeeper";
